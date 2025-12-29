@@ -1,0 +1,36 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(255, 176, 80);
+  border-radius: 3px;
+  padding: 6px;
+}
+
+.btn {
+  min-width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background-image: url("./svg/Cross.svg");
+  background-size: contain;
+  background-color: rgb(255, 176, 80);
+}
+
+.forcheck {
+  display: flex;
+  word-break: break-all;
+  gap: 10px;
+}
+
+.checkbox {
+  cursor: pointer;
+}
+
+.text {
+  text-decoration: none;
+}
+.textIsDone {
+  text-decoration: line-through;
+}
