@@ -1,31 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import TodoAddForm from "../TodoAddForm/TodoAddForm";
 import TodoList from "../TodoList/TodoList";
 import TaskInfo from "../TaskInfo/TaskInfo";
 import styles from "./styles.module.css";
-// import useLocalStorage from "../../hooks/useToggle";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 function Todo() {
-  const [tasks, setTasks] = useState(getValueToLocalStorage("tasks", []));
-  function getValueToLocalStorage(key, initialvalue) {
-    try {
-      const dataLocalStorage = JSON.parse(localStorage.getItem(key));
-      return Array.isArray(dataLocalStorage) ? dataLocalStorage : initialvalue;
-    } catch (error) {
-      console.error("Ошибка получения данных", error);
-      return initialvalue;
-    }
+  const toggleCompleteTask = (taskId, isDone) => {
+    const completedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, isDone: !isDone } : task
+    );
+    setTasks(completedTasks);
+  };
+
+  function deleteTask(taskId) {
+    setTasks(tasks.filter((task) => task.id !== taskId));
   }
-  function setValueToLocalStorage(key, value) {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-    } catch (error) {
-      console.error("Ошибка записи данных в localStorage", error);
-    }
-  }
-  useEffect(() => {
-    setValueToLocalStorage("tasks", tasks);
-  }, [tasks]);
+
+  const [tasks, setTasks] = useLocalStorage("tasks", []);
 
   const refInputNewtask = useRef(null);
 
@@ -44,7 +36,12 @@ function Todo() {
         />
         <TaskInfo tasks={tasks} setTasks={setTasks} />
         {tasks.length !== 0 ? (
-          <TodoList tasks={tasks} setTasks={setTasks} />
+          <TodoList
+            tasks={tasks}
+            setTasks={setTasks}
+            toggleCompleteTask={toggleCompleteTask}
+            deleteTask={deleteTask}
+          />
         ) : (
           <p>Список задач пуст</p>
         )}
