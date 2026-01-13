@@ -1,10 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
-import { memo } from "react";
 import { useState } from "react";
 import styles from "./styles.module.css";
-
-function TodoAddForm({ tasks, setTasks, refInputNewtask }) {
+import { useContext } from "react";
+import { TaskContext } from "../../context/TaskContext";
+function TodoAddForm({ tasks, setTasks }) {
   const [inputTask, setInputTask] = useState("");
+
+  const { refInputNewtask } = useContext(TaskContext);
 
   function changeInputTsak(event) {
     setInputTask(event.target.value);
@@ -35,4 +37,4 @@ function TodoAddForm({ tasks, setTasks, refInputNewtask }) {
   );
 }
 
-export default memo(TodoAddForm);
+export default TodoAddForm;

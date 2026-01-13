@@ -1,5 +1,8 @@
+import { TaskContext } from "../../context/TaskContext";
 import styles from "./styles.module.css";
-function TodoItem({ task, deleteTask, toggleCompleteTask }) {
+import { useContext } from "react";
+function TodoItem({ task }) {
+  const { deleteTask, toggleCompleteTask } = useContext(TaskContext);
   return (
     <>
       <li className={styles.item}>

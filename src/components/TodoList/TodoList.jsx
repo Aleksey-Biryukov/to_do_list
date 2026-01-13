@@ -1,16 +1,11 @@
 import styles from "./styles.module.css";
 import TodoItem from "../TodoItem/TodoItem";
-function TodoList({ tasks, deleteTask, toggleCompleteTask }) {
+function TodoList({ tasks }) {
   return (
     <div className={styles.container}>
       <ul className={styles.list}>
         {tasks.map((task) => (
-          <TodoItem
-            key={task.id}
-            task={task}
-            toggleCompleteTask={toggleCompleteTask}
-            deleteTask={deleteTask}
-          />
+          <TodoItem key={task.id} task={task} />
         ))}
       </ul>
     </div>
